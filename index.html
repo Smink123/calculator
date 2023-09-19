@@ -4,10 +4,52 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <div id="calculatorBody">
+        <div id="screen">
+            <div id="numbers">
+                <p id="numberContent"></p>
+            </div>
+        </div>
+        <div id="buttonsContainer">
+            <div id="addButton">+</div>
+            <div id="minusButton">-</div>
+            <div id="multiplyButton">x</div>
+            <div id="divideButton">÷</div>
+            <div id="nineButton">9</div>
+            <div id="eightButton">8</div>
+            <div id="sevenButton">7</div>
+            <div id="sixButton">6</div>
+            <div id="fiveButton">5</div>
+            <div id="fourButton">4</div>
+            <div id="threeButton">3</div>
+            <div id="twoButton">2</div>
+            <div id="oneButton">1</div>
+            <div id="zeroButton">0</div>
+            <div id="decimalButton">.</div>
+            <div id="backSpaceButton">DEL</div>
+            <div id="newButton">C</div>
+            <div id="equalsButton">=</div>
+        </div>
+    </div>
     <script>
+        const numberContent = document.getElementById('numberContent');
+        const nineButton = document.getElementById('nineButton');
+        const eightButton = document.getElementById('eightButton')
+        const sevenButton = document.getElementById('sevenButton')
+        const sixButton = document.getElementById('sixButton')
+        const fiveButton = document.getElementById('fiveButton')
+        const fourButton = document.getElementById('fourButton')
+        const threeButton = document.getElementById('threeButton')
+        const twoButton = document.getElementById('twoButton')
+        const oneButton = document.getElementById('oneButton')
+        const zeroButton = document.getElementById('zeroButton')
 
+
+
+        //maths functions
         function add(...values) {
             let total = 0;
             for (let i = 0; i < values.length; i++) {
@@ -40,6 +82,76 @@
             }
             return answer;
         }
+
+        // parts of the maths operators
+        let numberOne = 0;
+        let operator = '';
+        let numberTwo = 0;
+
+        function operate(numberOne, operator, numberTwo) {
+            if (operator === '+') {
+                return add(numberOne, numberTwo)
+            } else if (operator === '-') {
+                return subtract(numberOne, numberTwo)
+            } else if (operator === '*') {
+                return multiply(numberOne, numberTwo)
+            } else if (operator === '/') {
+                return divide(numberOne, numberTwo)
+            }
+        }
+
+
+
+        let wholeNumbers = [];
+
+        function displayNumber(number) {
+            wholeNumbers.push(number)
+            if (wholeNumbers[0] === 0 && wholeNumbers.length > 1) {
+                wholeNumbers.shift();
+            }
+            numberContent.textContent = wholeNumbers.join('');
+        }
+
+        nineButton.addEventListener('click', function() {
+            displayNumber(9)
+        })
+
+        eightButton.addEventListener('click', function() {
+            displayNumber(8)
+        })
+
+        sevenButton.addEventListener('click', function() {
+            displayNumber(7)
+        })
+
+        sixButton.addEventListener('click', function() {
+            displayNumber(6)
+        })
+
+        fiveButton.addEventListener('click', function() {
+            displayNumber(5)
+        })
+
+        fourButton.addEventListener('click', function() {
+            displayNumber(4)
+        })
+
+        threeButton.addEventListener('click', function() {
+            displayNumber(3)
+        })
+
+        twoButton.addEventListener('click', function() {
+            displayNumber(2)
+        })
+
+        oneButton.addEventListener('click', function() {
+            displayNumber(1)
+        })
+
+        zeroButton.addEventListener('click', function() {
+            displayNumber(0)
+        })
+
     </script>
 </body>
 </html>
