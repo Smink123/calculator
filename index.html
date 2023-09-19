@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        function add(...values) {
+            let total = 0;
+            for (let i = 0; i < values.length; i++) {
+                total += values[i];
+            }
+            return total;
+        }
+
+
+        function subtract(...values) {
+            let answer = values[0];
+            for (let i = 1; i < values.length; i++) {
+                answer -= values[i]
+            }
+            return answer;
+        }
+
+        function multiply(...values) {
+            let total = values[0];
+            for (let i = 1; i < values.length; i++) {
+                total *= values[i];
+            }
+            return total;
+        }
+
+        function divide(...values) {
+            let answer = values[0]
+            for (let i = 1; i < values.length; i++) {
+                answer /= values[i];
+            }
+            return answer;
+        }
+    </script>
+</body>
+</html>
