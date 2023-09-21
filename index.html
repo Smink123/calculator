@@ -49,8 +49,10 @@
         const decimalButton = document.getElementById('decimalButton')
         const backSpace = document.getElementById('backSpaceButton')
         const newButton = document.getElementById('newButton')
-
-
+        const addButton = document.getElementById('addButton')
+        const minusButton = document.getElementById('minusButton')
+        const multiplyButton = document.getElementById('multiplyButton')
+        const divideButton = document.getElementById('divideButton')
 
         //maths functions
         function add(...values) {
@@ -180,6 +182,36 @@ newButton.addEventListener('click', function() {
     numberContent.textContent = wholeNumbers.join('');
 });
 
+function displayOperator(operator) {
+    wholeNumbers.push(operator);
+    
+    for (let i = 0; i < wholeNumbers.length - 1; i++) {
+        if (wholeNumbers[i] === operator && wholeNumbers[i + 1] === operator) {
+            wholeNumbers.splice(i, 1);
+            i--; // decrement i by 1 to re-check the current index in case there are more consecutive operators.
+        }
+    }
+    if (wholeNumbers[0] === operator) {
+        wholeNumbers.shift();
+    }
+    numberContent.textContent = wholeNumbers.join('');
+}
+
+addButton.addEventListener('click', function() {
+    displayOperator('+');
+})
+
+minusButton.addEventListener('click', function() {
+    displayOperator('-');
+})
+
+multiplyButton.addEventListener('click', function() {
+    displayOperator('x');
+})
+
+divideButton.addEventListener('click', function() {
+    displayOperator('÷');
+})
 
 
 
