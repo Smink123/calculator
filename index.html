@@ -46,6 +46,9 @@
         const twoButton = document.getElementById('twoButton')
         const oneButton = document.getElementById('oneButton')
         const zeroButton = document.getElementById('zeroButton')
+        const decimalButton = document.getElementById('decimalButton')
+        const backSpace = document.getElementById('backSpaceButton')
+        const newButton = document.getElementById('newButton')
 
 
 
@@ -100,13 +103,13 @@
             }
         }
 
-
-
         let wholeNumbers = [];
 
         function displayNumber(number) {
             wholeNumbers.push(number)
-            if (wholeNumbers[0] === 0 && wholeNumbers.length > 1) {
+            if (wholeNumbers[0] === 0 && wholeNumbers[1] === '.') {
+                numberContent.textContent = wholeNumbers.join('');
+            } else if (wholeNumbers[0] === 0 && wholeNumbers.length > 1 || wholeNumbers[0] === '.') {
                 wholeNumbers.shift();
             }
             numberContent.textContent = wholeNumbers.join('');
@@ -151,6 +154,34 @@
         zeroButton.addEventListener('click', function() {
             displayNumber(0)
         })
+
+        let decimalAdded = false;
+
+function addDecimal() {
+    if (!decimalAdded) {
+        displayNumber('.');
+        decimalAdded = true;
+    }
+}
+
+decimalButton.addEventListener('click', function() {
+    addDecimal();
+});
+
+backSpace.addEventListener('click', function() {
+    wholeNumbers.pop();
+    decimalAdded = false; // Always set decimalAdded to false when using backspace
+    numberContent.textContent = wholeNumbers.join('');
+});
+
+newButton.addEventListener('click', function() {
+    decimalAdded = false;
+    wholeNumbers = [];
+    numberContent.textContent = wholeNumbers.join('');
+});
+
+
+
 
     </script>
 </body>
