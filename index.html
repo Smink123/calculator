@@ -1,220 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
-    <div id="calculatorBody">
-        <div id="screen">
-            <div id="numbers">
-                <p id="numberContent"></p>
-            </div>
+  <div class='calculator'>
+    <div class="input" id="input"></div>
+    <div class="buttons">
+      <div class="operators">
+        <div>+</div>
+        <div>-</div>
+        <div>&times</div>
+        <div>&divide</div>
+      </div>
+      <div class="numbersAndEquals">
+        <div class="allNums">
+          <div class="numbers">
+            <div>7</div>
+            <div>8</div>
+            <div>9</div>
+          </div>
+          <div class="numbers">
+            <div>4</div>
+            <div>5</div>
+            <div>6</div>
+          </div>
+          <div class="numbers">
+            <div>1</div>
+            <div>2</div>
+            <div>3</div>
+          </div>
+          <div class="numbers">
+            <div>0</div>
+            <div>.</div>
+            <div id="clear">C</div>
+          </div>
         </div>
-        <div id="buttonsContainer">
-            <div id="addButton">+</div>
-            <div id="minusButton">-</div>
-            <div id="multiplyButton">x</div>
-            <div id="divideButton">÷</div>
-            <div id="nineButton">9</div>
-            <div id="eightButton">8</div>
-            <div id="sevenButton">7</div>
-            <div id="sixButton">6</div>
-            <div id="fiveButton">5</div>
-            <div id="fourButton">4</div>
-            <div id="threeButton">3</div>
-            <div id="twoButton">2</div>
-            <div id="oneButton">1</div>
-            <div id="zeroButton">0</div>
-            <div id="decimalButton">.</div>
-            <div id="backSpaceButton">DEL</div>
-            <div id="newButton">C</div>
-            <div id="equalsButton">=</div>
-        </div>
+        <div class="equal" id="result">=</div>
+      </div>
     </div>
-    <script>
-        const numberContent = document.getElementById('numberContent');
-        const nineButton = document.getElementById('nineButton');
-        const eightButton = document.getElementById('eightButton')
-        const sevenButton = document.getElementById('sevenButton')
-        const sixButton = document.getElementById('sixButton')
-        const fiveButton = document.getElementById('fiveButton')
-        const fourButton = document.getElementById('fourButton')
-        const threeButton = document.getElementById('threeButton')
-        const twoButton = document.getElementById('twoButton')
-        const oneButton = document.getElementById('oneButton')
-        const zeroButton = document.getElementById('zeroButton')
-        const decimalButton = document.getElementById('decimalButton')
-        const backSpace = document.getElementById('backSpaceButton')
-        const newButton = document.getElementById('newButton')
-        const addButton = document.getElementById('addButton')
-        const minusButton = document.getElementById('minusButton')
-        const multiplyButton = document.getElementById('multiplyButton')
-        const divideButton = document.getElementById('divideButton')
+  </div>
+  <script>
+    const input = document.getElementById('input');
+    const number = document.querySelectorAll('.numbers div');
+    const operator = document.querySelectorAll('.operators div');
+    const result = document.getElementById('result');
+    const clear = document.getElementById('clear');
+    let resultDisplayed = false // flag to check what output is displayed
+    const operatorsPattern = /[+\u00F7\u00D7]/;
+    for (let i = 0; i < number.length; i++) {
+    number[i].addEventListener('click', function(e) {
+        let currentString = input.innerHTML; //what is current on the input screen
+        let lastChar = currentString[currentString.length - 1] //the last value of the string (number or operator)
 
-        //maths functions
-        function add(...values) {
-            let total = 0;
-            for (let i = 0; i < values.length; i++) {
-                total += values[i];
-            }
-            return total;
+        if (resultDisplayed === false) { //if the result is empty, insert numbers
+            input.innerHTML += e.target.innerHTML;
+        } else if (resultDisplayed === true && operatorsPattern.test(lastChar)) { //when values are inserted, and the last character is an operator, the new number/operator is appeneded and results the result Displayed flag
+            resultDisplayed = false;
+            input.innerHTML += e.target.innerHTML;
+        } else { //if none of the above is true, the input is cleared and result is reset.
+            resultDisplayed = false;
+            input.innerHTML = '';
+            input.innerHTML += e.target.innerHTML;
         }
-
-
-        function subtract(...values) {
-            let answer = values[0];
-            for (let i = 1; i < values.length; i++) {
-                answer -= values[i]
-            }
-            return answer;
-        }
-
-        function multiply(...values) {
-            let total = values[0];
-            for (let i = 1; i < values.length; i++) {
-                total *= values[i];
-            }
-            return total;
-        }
-
-        function divide(...values) {
-            let answer = values[0]
-            for (let i = 1; i < values.length; i++) {
-                answer /= values[i];
-            }
-            return answer;
-        }
-
-        // parts of the maths operators
-        let numberOne = 0;
-        let operator = '';
-        let numberTwo = 0;
-
-        function operate(numberOne, operator, numberTwo) {
-            if (operator === '+') {
-                return add(numberOne, numberTwo)
-            } else if (operator === '-') {
-                return subtract(numberOne, numberTwo)
-            } else if (operator === '*') {
-                return multiply(numberOne, numberTwo)
-            } else if (operator === '/') {
-                return divide(numberOne, numberTwo)
-            }
-        }
-
-        let wholeNumbers = [];
-
-        function displayNumber(number) {
-            wholeNumbers.push(number)
-            if (wholeNumbers[0] === 0 && wholeNumbers[1] === '.') {
-                numberContent.textContent = wholeNumbers.join('');
-            } else if (wholeNumbers[0] === 0 && wholeNumbers.length > 1 || wholeNumbers[0] === '.') {
-                wholeNumbers.shift();
-            }
-            numberContent.textContent = wholeNumbers.join('');
-        }
-
-        nineButton.addEventListener('click', function() {
-            displayNumber(9)
-        })
-
-        eightButton.addEventListener('click', function() {
-            displayNumber(8)
-        })
-
-        sevenButton.addEventListener('click', function() {
-            displayNumber(7)
-        })
-
-        sixButton.addEventListener('click', function() {
-            displayNumber(6)
-        })
-
-        fiveButton.addEventListener('click', function() {
-            displayNumber(5)
-        })
-
-        fourButton.addEventListener('click', function() {
-            displayNumber(4)
-        })
-
-        threeButton.addEventListener('click', function() {
-            displayNumber(3)
-        })
-
-        twoButton.addEventListener('click', function() {
-            displayNumber(2)
-        })
-
-        oneButton.addEventListener('click', function() {
-            displayNumber(1)
-        })
-
-        zeroButton.addEventListener('click', function() {
-            displayNumber(0)
-        })
-
-        let decimalAdded = false;
-
-function addDecimal() {
-    if (!decimalAdded) {
-        displayNumber('.');
-        decimalAdded = true;
-    }
+    });
 }
 
-decimalButton.addEventListener('click', function() {
-    addDecimal();
-});
 
-backSpace.addEventListener('click', function() {
-    wholeNumbers.pop();
-    decimalAdded = false; // Always set decimalAdded to false when using backspace
-    numberContent.textContent = wholeNumbers.join('');
-});
+    for (let i = 0; i < operator.length; i++) {
+    operator[i].addEventListener('click', function(e) {
+        let currentString = input.innerHTML;
+        let lastChar = currentString[currentString.length - 1];
 
-newButton.addEventListener('click', function() {
-    decimalAdded = false;
-    wholeNumbers = [];
-    numberContent.textContent = wholeNumbers.join('');
-});
-
-function displayOperator(operator) {
-    wholeNumbers.push(operator);
-    
-    for (let i = 0; i < wholeNumbers.length - 1; i++) {
-        if (wholeNumbers[i] === operator && wholeNumbers[i + 1] === operator) {
-            wholeNumbers.splice(i, 1);
-            i--; // decrement i by 1 to re-check the current index in case there are more consecutive operators.
+        if (lastChar === '+' || lastChar === '-' || lastChar === '×' || lastChar === '÷') { //if last value is an operator, and another operator is clicked - replace with the newer operator
+            let newString = currentString.substring(0, currentString.length - 1) + e.target.innerHTML;
+            input.innerHTML = newString;
+        } else if (currentString.length === 0) {
+            console.log('Enter a number first');
+        } else { //if all the above is true, just add the operator clicked
+            input.innerHTML += e.target.innerHTML;
         }
-    }
-    if (wholeNumbers[0] === operator) {
-        wholeNumbers.shift();
-    }
-    numberContent.textContent = wholeNumbers.join('');
+    });
 }
 
-addButton.addEventListener('click', function() {
-    displayOperator('+');
-})
-
-minusButton.addEventListener('click', function() {
-    displayOperator('-');
-})
-
-multiplyButton.addEventListener('click', function() {
-    displayOperator('x');
-})
-
-divideButton.addEventListener('click', function() {
-    displayOperator('÷');
-})
-
-
-
-    </script>
+  </script>
 </body>
+
 </html>
