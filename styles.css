@@ -26,10 +26,11 @@ body {
     flex: 1;
     background-color: plum;
     justify-content: flex-end;
-    overflow-x: auto;
     display: flex;
     align-items: center;
     font-size: 3rem;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .buttons {
