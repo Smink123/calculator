@@ -40,6 +40,7 @@
             <div>.</div>
             <div id="clear">C</div>
           </div>
+          <div id="backspace">backspace</div>
         </div>
         <div class="equal" id="result">=</div>
       </div>
@@ -47,47 +48,71 @@
   </div>
   <script>
     const input = document.getElementById('input');
-    const number = document.querySelectorAll('.numbers div');
-    const operator = document.querySelectorAll('.operators div');
-    const result = document.getElementById('result');
-    const clear = document.getElementById('clear');
-    let resultDisplayed = false // flag to check what output is displayed
-    const operatorsPattern = /[+\u00F7\u00D7]/;
-    for (let i = 0; i < number.length; i++) {
-      number[i].addEventListener('click', function(e) {
-        let currentString = input.innerHTML; //what is current on the input screen
-        let lastChar = currentString[currentString.length - 1] //the last value of the string (number or operator)
-        if (resultDisplayed === false) { //if the result is empty, insert numbers
-          input.innerHTML += e.target.innerHTML;
-          if (input.innerHTML.length > 16) {
-            input.style.fontSize = '2rem'
-          }
-        } else if (resultDisplayed === true && operatorsPattern.test(lastChar)) { //when values are inserted, and the last character is an operator, the new number/operator is appeneded and results the result Displayed flag
-          resultDisplayed = false;
-          input.innerHTML += e.target.innerHTML;
-          if (input.innerHTML.length > 16) {
-            input.style.fontSize = '2rem'
-          }
-        } else { //if none of the above is true, the input is cleared and result is reset.
-          resultDisplayed = false;
-          input.innerHTML += e.target.innerHTML;
-        }
-      });
+const number = document.querySelectorAll('.numbers div');
+const operator = document.querySelectorAll('.operators div');
+const result = document.getElementById('result');
+const clear = document.getElementById('clear');
+const backspace = document.getElementById('backspace');
+const decimalButton = document.querySelector('.numbers div:nth-child(2)'); // Select the decimal button
+
+let decimalClicked = false; // Flag to track if decimal point is clicked
+let operatorClicked = false; // Flag to track if an operator is clicked
+let resultDisplayed = false; // Flag to check what output is displayed
+const operatorsPattern = /[+\u00F7\u00D7]/;
+
+for (let i = 0; i < number.length; i++) {
+  number[i].addEventListener('click', function(e) {
+    let currentString = input.innerHTML; // What is currently on the input screen
+    let lastChar = currentString[currentString.length - 1]; // The last value of the string (number or operator)
+
+    if (resultDisplayed === false) {
+      if (e.target.innerHTML === '.' && decimalClicked) {
+        // Prevent entering multiple decimal points
+        return;
+      }
+
+      if (e.target.innerHTML === '.') {
+        decimalClicked = true;
+      }
+
+      input.innerHTML += e.target.innerHTML;
+
+      if (input.innerHTML.length > 16) {
+        input.style.fontSize = '2rem';
+      }
+    } else if (resultDisplayed === true && operatorsPattern.test(lastChar)) {
+      resultDisplayed = false;
+      input.innerHTML += e.target.innerHTML;
+      if (input.innerHTML.length > 16) {
+        input.style.fontSize = '2rem';
+      }
+    } else {
+      decimalClicked = false;
+      resultDisplayed = false;
+      input.innerHTML += e.target.innerHTML;
     }
-    for (let i = 0; i < operator.length; i++) {
-      operator[i].addEventListener('click', function(e) {
-        let currentString = input.innerHTML;
-        let lastChar = currentString[currentString.length - 1];
-        if (lastChar === '+' || lastChar === '-' || lastChar === '×' || lastChar === '÷') { //if last value is an operator, and another operator is clicked - replace with the newer operator
-          let newString = currentString.substring(0, currentString.length - 1) + e.target.innerHTML;
-          input.innerHTML = newString;
-        } else if (currentString.length === 0) {
-          console.log('Enter a number first');
-        } else { //if all the above is true, just add the operator clicked
-          input.innerHTML += e.target.innerHTML;
-        }
-      });
+  });
+}
+
+for (let i = 0; i < operator.length; i++) {
+  operator[i].addEventListener('click', function(e) {
+    let currentString = input.innerHTML;
+    let lastChar = currentString[currentString.length - 1];
+
+    if (lastChar === '+' || lastChar === '-' || lastChar === '×' || lastChar === '÷') {
+      // If last value is an operator, and another operator is clicked, replace with the newer operator
+      let newString = currentString.substring(0, currentString.length - 1) + e.target.innerHTML;
+      input.innerHTML = newString;
+    } else if (currentString.length === 0) {
+      console.log('Enter a number first');
+    } else {
+      // If all the above is true, just add the operator clicked
+      input.innerHTML += e.target.innerHTML;
+      decimalClicked = false; // Reset the decimalClicked flag
+      operatorClicked = true; // Set the operatorClicked flag
     }
+  });
+}
     const dot = '...'
     result.addEventListener('click', function() {
       if (input.innerHTML.length === 0) {
@@ -144,6 +169,14 @@
       input.style.fontSize = '3rem';
       input.innerHTML = '';
     });
+
+    backspace.addEventListener('click', function() {
+      if (input.innerHTML.includes(dot)) {
+        input.innerHTML = input.innerHTML.replace(dot, "");
+      }
+      let removeInput = input.innerHTML.slice(0, -1);
+      input.innerHTML = removeInput;
+    })
   </script>
 </body>
 
