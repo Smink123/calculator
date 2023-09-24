@@ -6,10 +6,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nova+Mono&display=swap" rel="stylesheet">
 </head>
 
 <body>
   <div class='calculator'>
+    <div class="lightDarkContainer">
+      <div class="ldButton">
+        <label class="switch">
+          <input type="checkbox" id="modeToggle">
+          <span class="slider"></span>
+        </label>
+      </div>
+    </div>
     <div class="input" id="input"></div>
     <div class="buttons">
       <div class="operators">
@@ -36,13 +47,15 @@
             <div>3</div>
           </div>
           <div class="numbers">
+            <div id="dotButton">.</div>
             <div>0</div>
-            <div>.</div>
-            <div id="clear">C</div>
+            <div id="clear">DEL</div>
           </div>
-          <div id="backspace">backspace</div>
         </div>
-        <div class="equal" id="result">=</div>
+        <div class="sideButtons">
+          <div id="backspace">←</div>
+          <div class="equal" id="result">=</div>
+        </div>
       </div>
     </div>
   </div>
