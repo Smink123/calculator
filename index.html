@@ -92,13 +92,13 @@ for (let i = 0; i < number.length; i++) {
       input.innerHTML += e.target.innerHTML;
 
       if (input.innerHTML.length > 21) {
-        input.style.fontSize = '1rem';
+        input.style.fontSize = '2rem';
       }
     } else if (resultDisplayed === true && operatorsPattern.test(lastChar)) {
       resultDisplayed = false;
       input.innerHTML += e.target.innerHTML;
       if (input.innerHTML.length > 21) {
-        input.style.fontSize = '1rem';
+        input.style.fontSize = '2rem';
       }
     } else {
       decimalClicked = false;
@@ -174,7 +174,6 @@ for (let i = 0; i < operator.length; i++) {
         input.style.fontSize = '2rem';
         input.innerHTML = numbers[0]; // The only value left in the number array will be the answer, which is what we are showing.
       } else {
-        input.style.fontSize = '1rem';
         input.innerHTML = numbers[0].toFixed(15) + dot;
       }
       resultDisplayed = true;
@@ -200,7 +199,7 @@ for (let i = 0; i < operator.length; i++) {
     document.querySelector('#dotButton').classList.add('dark-mode');
     document.querySelector('#backspace').classList.add('dark-mode');
     document.querySelector('#clear').classList.add('dark-mode');
-    /*document.querySelector('.equal').classList.add('dark-mode');*/
+    document.querySelector('.equal').classList.add('dark-mode');
     document.querySelector('.lightDarkContainer').classList.add('dark-mode');
     number.forEach(div => {
       div.classList.add('dark-mode');
@@ -216,7 +215,7 @@ for (let i = 0; i < operator.length; i++) {
     document.querySelector('#dotButton').classList.remove('dark-mode');
     document.querySelector('#backspace').classList.remove('dark-mode');
     document.querySelector('#clear').classList.remove('dark-mode');
-    /*document.querySelector('.equal').classList.remove('dark-mode');*/
+    document.querySelector('.equal').classList.remove('dark-mode');
     document.querySelector('.lightDarkContainer').classList.remove('dark-mode');
     number.forEach(div => {
       div.classList.remove('dark-mode');
