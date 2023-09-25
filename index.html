@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="styles.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Nova+Mono&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Martian+Mono:wght@100;300&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -53,7 +53,7 @@
           </div>
         </div>
         <div class="sideButtons">
-          <div id="backspace">←</div>
+          <div id="backspace"><</div>
           <div class="equal" id="result">=</div>
         </div>
       </div>
@@ -66,7 +66,8 @@ const operator = document.querySelectorAll('.operators div');
 const result = document.getElementById('result');
 const clear = document.getElementById('clear');
 const backspace = document.getElementById('backspace');
-const decimalButton = document.querySelector('.numbers div:nth-child(2)'); // Select the decimal button
+const decimalButton = document.querySelector('.numbers div:nth-child(2)');
+const modeToggle = document.getElementById('modeToggle');
 
 let decimalClicked = false; // Flag to track if decimal point is clicked
 let operatorClicked = false; // Flag to track if an operator is clicked
@@ -90,14 +91,14 @@ for (let i = 0; i < number.length; i++) {
 
       input.innerHTML += e.target.innerHTML;
 
-      if (input.innerHTML.length > 16) {
-        input.style.fontSize = '2rem';
+      if (input.innerHTML.length > 21) {
+        input.style.fontSize = '1rem';
       }
     } else if (resultDisplayed === true && operatorsPattern.test(lastChar)) {
       resultDisplayed = false;
       input.innerHTML += e.target.innerHTML;
-      if (input.innerHTML.length > 16) {
-        input.style.fontSize = '2rem';
+      if (input.innerHTML.length > 21) {
+        input.style.fontSize = '1rem';
       }
     } else {
       decimalClicked = false;
@@ -169,17 +170,17 @@ for (let i = 0; i < operator.length; i++) {
         operators.splice(add, 1);
         add = operators.indexOf("+");
       }
-      if (numbers[0].toString().length < 10) {
-        input.style.fontSize = '3rem';
+      if (numbers[0].toString().length < 17) {
+        input.style.fontSize = '2rem';
         input.innerHTML = numbers[0]; // The only value left in the number array will be the answer, which is what we are showing.
       } else {
-        input.style.fontSize = '2rem'; // Set the font size to 1rem
-        input.innerHTML = numbers[0].toFixed(5) + dot;
+        input.style.fontSize = '1rem';
+        input.innerHTML = numbers[0].toFixed(15) + dot;
       }
       resultDisplayed = true;
     });
     clear.addEventListener('click', function() {
-      input.style.fontSize = '3rem';
+      input.style.fontSize = '2rem';
       input.innerHTML = '';
     });
 
@@ -190,6 +191,42 @@ for (let i = 0; i < operator.length; i++) {
       let removeInput = input.innerHTML.slice(0, -1);
       input.innerHTML = removeInput;
     })
+
+    modeToggle.addEventListener('change', () => {
+  if (modeToggle.checked) {
+    document.body.classList.add('dark-mode');
+    document.querySelector('.buttons').classList.add('dark-mode');
+    document.querySelector('.input').classList.add('dark-mode');
+    document.querySelector('#dotButton').classList.add('dark-mode');
+    document.querySelector('#backspace').classList.add('dark-mode');
+    document.querySelector('#clear').classList.add('dark-mode');
+    /*document.querySelector('.equal').classList.add('dark-mode');*/
+    document.querySelector('.lightDarkContainer').classList.add('dark-mode');
+    number.forEach(div => {
+      div.classList.add('dark-mode');
+    })
+    operator.forEach(div => {
+      div.classList.add('dark-mode')
+    })
+    localStorage.setItem('mode', 'dark-mode');
+  } else {
+    document.body.classList.remove('dark-mode');
+    document.querySelector('.buttons').classList.remove('dark-mode');
+    document.querySelector('.input').classList.remove('dark-mode');
+    document.querySelector('#dotButton').classList.remove('dark-mode');
+    document.querySelector('#backspace').classList.remove('dark-mode');
+    document.querySelector('#clear').classList.remove('dark-mode');
+    /*document.querySelector('.equal').classList.remove('dark-mode');*/
+    document.querySelector('.lightDarkContainer').classList.remove('dark-mode');
+    number.forEach(div => {
+      div.classList.remove('dark-mode');
+    })
+    operator.forEach(div => {
+      div.classList.remove('dark-mode')
+    })
+    localStorage.setItem('mode', 'light-mode');
+  }
+});
   </script>
 </body>
 
