@@ -81,7 +81,7 @@ body {
 
 /* Styles for the slider thumb when it's checked (active) */
 input:checked + .slider:before {
-    background-color: #3b3a3a;
+    background-color: #474747;
     transform: translateX(26px);
 }
   
@@ -98,6 +98,7 @@ input:checked + .slider:before {
     width: 100%;
     flex: 1;
     background-color: #ededed;
+    color: #262626;
     padding: 15px;
     text-align: right;
     word-break: break-all;
@@ -106,7 +107,7 @@ input:checked + .slider:before {
     font-weight: 300;
     display: flex;
     align-items: center;
-    justify-content: flex-end; /* align content to the right */
+    justify-content: flex-end;
     overflow-x: auto;
 }
 
@@ -143,7 +144,6 @@ input:checked + .slider:before {
     align-items: center;
     border-radius: 50%;
     cursor: pointer;
-    /*border: black solid 1px;*/
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
     font-weight: 100;
 }
@@ -156,7 +156,6 @@ input:checked + .slider:before {
     height: 75%;
     width: 100px;
     border-radius: 60px;
-    /*border: black solid 1px;*/
     margin: 5px;
     cursor: pointer;
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2)
@@ -193,11 +192,14 @@ input:checked + .slider:before {
     font-weight: 100;
 }
 
+.operators div:hover, .numbers div:hover, .equal:hover, #backspace:hover {
+  font-weight: 300;
+}
+
 
 .allNums {
     display: flex;
     flex-direction: column;
-    /*height: 100%;*/
     width: 75%;
 }
 
@@ -227,56 +229,59 @@ input:checked + .slider:before {
 .numbers div:active, .operators div:active, .equal:active, #backspace:active {
     transform: translateY(4px);
 }
-/*
-body.light-mode {
-    background-color: white;
-    color: black;
-  }*/
   
   body.dark-mode {
     background-color: #0a0a0a;
+    box-shadow: 15px 15px 20px rgba(0, 0, 0, 0.5);
   }
 
   .buttons.dark-mode {
-    background-color: #262626;
+    background-color: #2e2e2e;
     transition: background-color 0.2s ease, color 0.2s ease, font-size 0.2s ease;
   }
 
   .numbers div.dark-mode {
-    background-color: black;
+    background-color: #141414;
     color: #f5f5f5;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   }
 
   .input.dark-mode {
-    background-color: #262626;
+    background-color: #2e2e2e;
     transition: background-color 0.2s ease, color 0.2s ease, font-size 0.2s ease;
     color: white;
   }
 
   .lightDarkContainer.dark-mode {
-    background-color: #262626;
+    background-color: #2e2e2e;
     transition: background-color 0.2s ease, color 0.2s ease, font-size 0.2s ease;
   }
 
   .operators div.dark-mode {
-    background-color: #3b3a3a;
+    background-color: #474747;
     color: #f5f5f5;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+
   }
 
   #dotButton.dark-mode {
-    background-color: #3b3a3a;
+    background-color: #474747;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   }
 
   #backspace.dark-mode {
-    background-color: #3b3a3a;
+    background-color: #474747;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     color: #f5f5f5;
   }
 
   #clear.dark-mode {
-    background-color: #3b3a3a;
+    background-color: #474747;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   }
 
   .equal.dark-mode {
     color: #f5f5f5;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   }
 
